@@ -6,7 +6,7 @@ class ArrayQueue:public Queue<T>
 public:
         ArrayQueue();
         ~ArrayQueue() {delete [] data;}
-        ArrayStack(const ArrayStack &s);
+        ArrayQueue(const ArrayQueue &s);
         void enqueue(const T &t);
         T dequeue();
         T peek() const;
@@ -23,9 +23,15 @@ ArrayQueue<T>::ArrayQueue() : head{0}, tail{0}, sz{10}, data{new T[10]}
 {
 }
 template <typename T>
-ArrayStack<T>::ArrayQueue(const ArrayQueue &s) : top{s.top}, tail{s.tail}, sz{s.sz}, data{new T[s.sz]}
-{
-    for(int i=0; i<top; i++) data[i] = s.data[i];
+ArrayQueue<T>::ArrayQueue(const ArrayQueue &s) : head{0}, tail{0}, sz{s.sz}, data{new T[s.sz]}
+{       
+        if(s.head<s.tail){
+                for(int i=s.head; i<tail; i++) data[tail++] = s.data[i];
+        }
+        if(s.tail<s.head){
+                for(int i=s.head; i<sz; i++) data[tail++] = s.data[i];
+                for(int i=0; i<tail; i++) data[tail++] = s.data[i];
+        }
 }
 template <typename T>
 void ArrayQueue<T>::enqueue(const T &t) {
