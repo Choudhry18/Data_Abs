@@ -23,15 +23,9 @@ ArrayQueue<T>::ArrayQueue() : head{0}, tail{0}, sz{10}, data{new T[10]}
 {
 }
 template <typename T>
-ArrayQueue<T>::ArrayQueue(const ArrayQueue &s) : head{0}, tail{0}, sz{s.sz}, data{new T[s.sz]}
+ArrayQueue<T>::ArrayQueue(const ArrayQueue &s) : head{s.head}, tail{s.tail}, sz{s.sz}, data{new T[s.sz]}
 {       
-        if(s.head<s.tail){
-                for(int i=s.head; i<tail; i++) data[tail++] = s.data[i];
-        }
-        if(s.tail<s.head){
-                for(int i=s.head; i<sz; i++) data[tail++] = s.data[i];
-                for(int i=0; i<tail; i++) data[tail++] = s.data[i];
-        }
+        for(int i=0; i<sz; i++) data[i++] = s.data[i];
 }
 template <typename T>
 void ArrayQueue<T>::enqueue(const T &t) {
